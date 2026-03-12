@@ -1,0 +1,75 @@
+.dashboard {
+  min-height: 100vh;
+
+  .dashboard-nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 2rem;
+    background: var(--card-bg);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+
+    .brand {
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: var(--primary);
+    }
+
+    .logout-btn {
+      padding: 0.5rem 1rem;
+      background: transparent;
+      color: var(--text-secondary);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      font-size: 0.875rem;
+      font-weight: 500;
+      transition: all 0.2s;
+
+      &:hover {
+        background: var(--error);
+        color: white;
+        border-color: var(--error);
+      }
+    }
+  }
+
+  .dashboard-content {
+    max-width: 600px;
+    margin: 3rem auto;
+    padding: 0 1rem;
+
+    .welcome-card {
+      background: var(--card-bg);
+      border-radius: var(--radius);
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+      padding: 2rem;
+
+      h2 {
+        font-size: 1.5rem;
+        margin-bottom: 1rem;
+      }
+
+      .user-info {
+        display: grid;
+        gap: 0.75rem;
+
+        .info-row {
+          display: flex;
+          justify-content: space-between;
+          padding: 0.5rem 0;
+          border-bottom: 1px solid var(--border);
+          font-size: 0.875rem;
+
+          .info-label {
+            font-weight: 500;
+            color: var(--text-secondary);
+          }
+
+          .info-value {
+            color: var(--text);
+          }
+        }
+      }
+    }
+  }
+}
