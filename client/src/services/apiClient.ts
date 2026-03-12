@@ -12,7 +12,7 @@ const apiClient = axios.create({
   },
 });
 
-let accessToken: string | null = null;
+let accessToken: any;
 
 export const setAccessToken = (token: string | null): void => {
   accessToken = token;
