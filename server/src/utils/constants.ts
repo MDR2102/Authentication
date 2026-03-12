@@ -1,4 +1,5 @@
 import { CookieOptions } from "express";
+
 import envConfig from "../config/envConfig";
 
 export const AUTH_MESSAGES = {

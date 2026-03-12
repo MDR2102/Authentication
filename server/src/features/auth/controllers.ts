@@ -1,7 +1,9 @@
 import { Request, Response, NextFunction } from "express";
+
+import { AUTH_MESSAGES, COOKIE_OPTIONS } from "../../utils/constants";
+
 import * as authService from "./services";
 import { IApiResponse, IAuthTokens, IUserResponse } from "./interfaces";
-import { AUTH_MESSAGES, COOKIE_OPTIONS } from "../../utils/constants";
 
 export const register = async (
   req: Request,

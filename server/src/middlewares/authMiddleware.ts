@@ -1,5 +1,6 @@
 import { Request, Response, NextFunction } from "express";
 import jwt from "jsonwebtoken";
+
 import envConfig from "../config/envConfig";
 import { ITokenPayload } from "../features/auth/interfaces";
 import { AUTH_MESSAGES } from "../utils/constants";

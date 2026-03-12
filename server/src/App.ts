@@ -4,6 +4,7 @@ import helmet from "helmet";
 import cookieParser from "cookie-parser";
 import hpp from "hpp";
 import rateLimit from "express-rate-limit";
+
 import envConfig from "./config/envConfig";
 import connectDatabase from "./db/connection";
 import authRoutes from "./features/auth/routes";

@@ -1,4 +1,3 @@
-import apiClient from "./apiClient";
 import { API_ENDPOINTS } from "../constants";
 import {
   IApiResponse,
@@ -7,6 +6,8 @@ import {
   IRegisterPayload,
   IUser,
 } from "../interfaces/auth.interface";
+
+import apiClient from "./apiClient";
 
 export const authService = {
   register: async (

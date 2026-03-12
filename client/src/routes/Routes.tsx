@@ -1,8 +1,5 @@
-import { lazy, Suspense } from "react";
-import { Routes, Route, Navigate } from "react-router-dom";
+import { lazy } from "react";
 
-import ProtectedRoute from "../components/ProtectedRoute";
-import PublicRoute from "../components/PublicRoute";
 import { ROUTES } from "../constants";
 
 const Login = lazy(() => import("../pages/auth/Login"));

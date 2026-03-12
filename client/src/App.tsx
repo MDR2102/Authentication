@@ -1,9 +1,3 @@
-import { BrowserRouter } from "react-router-dom";
-import { Toaster } from "react-hot-toast";
-
-import { AuthProvider } from "./hooks/useAuth";
-import ErrorBoundary from "./components/ErrorBoundary";
-import AppRoutes from "./routes/Routes";
 import "./styles/global.scss";
 
 const App = () => {

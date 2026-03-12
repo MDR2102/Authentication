@@ -1,5 +1,6 @@
 import { Request, Response, NextFunction } from "express";
 import Joi from "joi";
+
 import { AUTH_MESSAGES } from "../utils/constants";
 
 type ValidationSource = "body" | "params" | "query";

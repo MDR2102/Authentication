@@ -1,8 +1,10 @@
 import jwt from "jsonwebtoken";
-import User, { IUserDocument } from "./models/User";
+
 import envConfig from "../../config/envConfig";
-import { IAuthTokens, ITokenPayload, IUserResponse } from "./interfaces";
 import { AUTH_MESSAGES } from "../../utils/constants";
+
+import User, { IUserDocument } from "./models/User";
+import { IAuthTokens, ITokenPayload, IUserResponse } from "./interfaces";
 
 const generateTokens = (payload: ITokenPayload): IAuthTokens => {
   const accessToken = jwt.sign(payload, envConfig.JWT_ACCESS_SECRET, {
