@@ -1,5 +1,12 @@
 import "./styles/global.scss";
 
+import { BrowserRouter } from "react-router-dom";
+import { Toaster } from "react-hot-toast";
+
+import ErrorBoundary from "./components/ErrorBoundary";
+import { AuthProvider } from "./hooks/useAuth";
+import AppRoutes from "./routes/Routes";
+
 const App = () => {
   return (
     <ErrorBoundary>
