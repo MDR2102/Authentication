@@ -1,4 +1,5 @@
-import { lazy } from "react";
+import { lazy, Suspense } from "react";
+import { Routes, Route, Navigate } from "react-router-dom";
 
 import { ROUTES } from "../constants";
 
@@ -23,30 +24,9 @@ const AppRoutes = () => {
   return (
     <Suspense fallback={<LoadingFallback />}>
       <Routes>
-        <Route
-          path={ROUTES.LOGIN}
-          element={
-            <PublicRoute>
-              <Login />
-            </PublicRoute>
-          }
-        />
-        <Route
-          path={ROUTES.REGISTER}
-          element={
-            <PublicRoute>
-              <Register />
-            </PublicRoute>
-          }
-        />
-        <Route
-          path={ROUTES.DASHBOARD}
-          element={
-            <ProtectedRoute>
-              <Dashboard />
-            </ProtectedRoute>
-          }
-        />
+        <Route path={ROUTES.LOGIN} element={<Login />} />
+        <Route path={ROUTES.REGISTER} element={<Register />} />
+        <Route path={ROUTES.DASHBOARD} element={<Dashboard />} />
         <Route
           path={ROUTES.HOME}
           element={<Navigate to={ROUTES.LOGIN} replace />}

@@ -64,6 +64,30 @@
         font-size: 0.75rem;
         margin-top: 0.25rem;
       }
+
+      .password-requirements {
+        margin-top: 0.5rem;
+        padding: 0.5rem;
+        background-color: #f8f9fa;
+        border-radius: 4px;
+        font-size: 0.75rem;
+        color: var(--text-secondary);
+
+        small {
+          font-weight: 500;
+          display: block;
+          margin-bottom: 0.25rem;
+        }
+
+        ul {
+          margin: 0;
+          padding-left: 1.2rem;
+
+          li {
+            margin-bottom: 0.1rem;
+          }
+        }
+      }
     }
 
     .submit-btn {

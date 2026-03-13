@@ -1,5 +1,12 @@
 import "./styles/global.scss";
 
+import { BrowserRouter } from "react-router-dom";
+import { Toaster } from "react-hot-toast";
+
+import ErrorBoundary from "./components/ErrorBoundary";
+import { AuthProvider } from "./hooks/useAuth";
+import Routes from "./routes/Routes";
+
 const App = () => {
   return (
     <ErrorBoundary>
@@ -8,7 +15,7 @@ const App = () => {
       >
         <AuthProvider>
           <Toaster position="top-right" toastOptions={{ duration: 3000 }} />
-          <AppRoutes />
+          <Routes />
         </AuthProvider>
       </BrowserRouter>
     </ErrorBoundary>

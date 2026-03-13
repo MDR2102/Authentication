@@ -56,20 +56,41 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const login = useCallback(async (payload: ILoginPayload) => {
     const response = await authService.login(payload);
     if (response.success && response.data) {
-      setAuth(response.data.user, response.data.tokens.accessToken);
+      const { user, tokens } = response.data;
+
+      // Store tokens in localStorage
+      localStorage.setItem("accessToken", tokens.accessToken);
+      localStorage.setItem("refreshToken", tokens.refreshToken);
+
+      setAuth(user, tokens.accessToken);
     }
   }, []);
 
   const register = useCallback(async (payload: IRegisterPayload) => {
     const response = await authService.register(payload);
     if (response.success && response.data) {
-      setAuth(response.data.user, response.data.tokens.accessToken);
+      const { user, tokens } = response.data;
+
+      // Store tokens in localStorage
+      localStorage.setItem("accessToken", tokens.accessToken);
+      localStorage.setItem("refreshToken", tokens.refreshToken);
+
+      setAuth(user, tokens.accessToken);
     }
   }, []);
 
   const logout = useCallback(async () => {
-    await authService.logout();
-    clearAuth();
+    try {
+      await authService.logout();
+    } catch {
+      // Log error for debugging
+      console.error("Logout error:");
+    } finally {
+      // Clear localStorage
+      localStorage.removeItem("accessToken");
+      localStorage.removeItem("refreshToken");
+      clearAuth();
+    }
   }, []);
 
   const fetchProfile = useCallback(async () => {
@@ -89,30 +110,67 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 
   useEffect(() => {
     const initAuth = async () => {
-      try {
-        const tokenResponse = await authService.refreshToken();
-        if (tokenResponse.success && tokenResponse.data) {
-          setAccessToken(tokenResponse.data.accessToken);
-          setState((prev) => ({
-            ...prev,
-            accessToken: tokenResponse.data!.accessToken,
-            isAuthenticated: true,
-          }));
+      // Check for stored tokens in localStorage
+      const storedAccessToken = localStorage.getItem("accessToken");
+      const storedRefreshToken = localStorage.getItem("refreshToken");
 
+      if (storedAccessToken && storedRefreshToken) {
+        try {
+          // Set the access token for API calls
+          setAccessToken(storedAccessToken);
+
+          // Get user profile with stored token
           const profileResponse = await authService.getProfile();
           if (profileResponse.success && profileResponse.data) {
-            setState((prev) => ({
-              ...prev,
+            setState({
               user: profileResponse.data as IUser,
+              accessToken: storedAccessToken,
+              isAuthenticated: true,
               isLoading: false,
-            }));
+            });
             return;
           }
+        } catch {
+          // If profile fails, try to refresh token
+          try {
+            const tokenResponse = await authService.refreshToken();
+            if (tokenResponse.success && tokenResponse.data) {
+              const newAccessToken = tokenResponse.data.accessToken;
+              const newRefreshToken = tokenResponse.data.refreshToken;
+
+              // Update localStorage
+              localStorage.setItem("accessToken", newAccessToken);
+              localStorage.setItem("refreshToken", newRefreshToken);
+
+              setAccessToken(newAccessToken);
+
+              // Get user profile with new token
+              const profileResponse = await authService.getProfile();
+              if (profileResponse.success && profileResponse.data) {
+                setState({
+                  user: profileResponse.data as IUser,
+                  accessToken: newAccessToken,
+                  isAuthenticated: true,
+                  isLoading: false,
+                });
+                return;
+              }
+            }
+          } catch {
+            // Token refresh failed, clear stored tokens
+            localStorage.removeItem("accessToken");
+            localStorage.removeItem("refreshToken");
+          }
         }
-      } catch {
-        // Not authenticated
       }
-      setState((prev) => ({ ...prev, isLoading: false }));
+
+      // No valid authentication found
+      setState({
+        user: null,
+        accessToken: null,
+        isAuthenticated: false,
+        isLoading: false,
+      });
     };
 
     initAuth();

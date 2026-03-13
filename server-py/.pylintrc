@@ -1,0 +1,27 @@
+[MASTER]
+ignore=venv
+ignore-patterns=__pycache__
+load-plugins=
+
+[MESSAGES CONTROL]
+disable=
+    # keep defaults only for intentional skips
+
+[FORMAT]
+max-line-length=79
+indent-string='    '
+
+[DESIGN]
+max-args=6
+max-attributes=10
+max-branches=12
+max-statements=50
+
+[BASIC]
+good-names=i,j,k,ex,Run,_,pk,id
+bad-functions=print
+
+[TYPECHECK]
+ignored-modules=
+    fastapi,
+    pydantic

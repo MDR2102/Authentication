@@ -31,6 +31,7 @@ npm run prettier:check || {
 }
 echo '✅ Prettier standards looking good!'
 
+
 # Verify ESLint standards
 echo '📋 Checking ESLint rules...'
 npm run lint || {
@@ -40,6 +41,12 @@ npm run lint || {
 }
 echo '✅ ESLint standards looking good!'
 
+echo '🐍 Running pylint for server-py...'
+(cd server-py && python -m pylint app) || {
+    echo '❌ Pylint failed for server-py. Fix backend lint errors before committing.'
+    exit 1
+}
+echo '✅ Pylint checks passed!'
+
 echo '✅✅✅✅ All checks passed! Committing now... ✅✅✅✅'
 exit 0
- 

@@ -19,9 +19,31 @@ const Register = () => {
     register,
     handleSubmit,
     formState: { errors, isSubmitting },
-  } = useForm<IRegisterPayload>();
+  } = useForm<IRegisterPayload>({
+    mode: "onChange",
+    reValidateMode: "onChange",
+  });
 
   const onSubmit = async (data: IRegisterPayload) => {
+    // Validate all required fields
+    if (!data.firstName || !data.lastName || !data.email || !data.password) {
+      toast.error("Please fill in all required fields");
+      return;
+    }
+
+    // Validate email format
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(data.email)) {
+      toast.error("Please enter a valid email address");
+      return;
+    }
+
+    // Validate password length
+    if (data.password.length < 8) {
+      toast.error("Password must be at least 8 characters long");
+      return;
+    }
+
     try {
       await registerUser(data);
       toast.success("Account created successfully");
@@ -83,10 +105,6 @@ const Register = () => {
               className={errors.email ? "error" : ""}
               {...register("email", {
                 required: VALIDATION_MESSAGES.EMAIL_REQUIRED,
-                pattern: {
-                  value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
-                  message: VALIDATION_MESSAGES.EMAIL_INVALID,
-                },
               })}
             />
             {errors.email && (
@@ -115,6 +133,16 @@ const Register = () => {
             {errors.password && (
               <span className="error-message">{errors.password.message}</span>
             )}
+            <div className="password-requirements">
+              <small>Password must contain:</small>
+              <ul>
+                <li>At least 8 characters</li>
+                <li>One uppercase letter</li>
+                <li>One lowercase letter</li>
+                <li>One number</li>
+                <li>One special character (@$!%*?&)</li>
+              </ul>
+            </div>
           </div>
 
           <button type="submit" className="submit-btn" disabled={isSubmitting}>

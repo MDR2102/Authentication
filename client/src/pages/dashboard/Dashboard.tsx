@@ -49,7 +49,11 @@ const Dashboard = () => {
               <span className="info-label">Member Since</span>
               <span className="info-value">
                 {user?.createdAt
-                  ? new Date(user.createdAt).toLocaleDateString()
+                  ? new Date(user.createdAt).toLocaleDateString("en-US", {
+                      year: "numeric",
+                      month: "long",
+                      day: "numeric",
+                    })
                   : "N/A"}
               </span>
             </div>
