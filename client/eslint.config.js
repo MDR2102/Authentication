@@ -1,4 +1,5 @@
 import js from "@eslint/js";
+import globals from "globals";
 import react from "eslint-plugin-react";
 import reactHooks from "eslint-plugin-react-hooks";
 import unusedImports from "eslint-plugin-unused-imports";
@@ -18,12 +19,14 @@ export default [
       parser: tsParser,
       ecmaVersion: "latest",
       sourceType: "module",
-
       globals: {
+        ...globals.browser,
         window: "readonly",
         document: "readonly",
+        localStorage: "readonly",
+        console: "readonly",
+        __dirname: "readonly",
       },
-
       parserOptions: {
         ecmaFeatures: {
           jsx: true,
@@ -141,12 +144,7 @@ export default [
       i18n
       =============================
       */
-      "i18next/no-literal-string": [
-        "warn",
-        {
-          markupOnly: true,
-        },
-      ],
+      "i18next/no-literal-string": "off",
 
       /*
       =============================
@@ -163,6 +161,15 @@ export default [
       */
       eqeqeq: ["error", "smart"],
       "eol-last": "error",
+    },
+  },
+  {
+    files: ["vite.config.ts"],
+    languageOptions: {
+      globals: {
+        ...globals.node,
+        __dirname: "readonly",
+      },
     },
   },
 ];

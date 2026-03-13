@@ -30,7 +30,7 @@ const PublicRoute = ({ children }: PublicRouteProps) => {
     return <Navigate to={ROUTES.DASHBOARD} replace />;
   }
 
-  return <>{children}</>;
+  return children;
 };
 
 export default PublicRoute;

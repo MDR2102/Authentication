@@ -102,19 +102,19 @@ npm run dev:client
 
 ## API Endpoints
 
-| Method | Endpoint                | Auth     | Description        |
-| ------ | ----------------------- | -------- | ------------------ |
-| POST   | `/api/auth/register`    | Public   | Register a user    |
-| POST   | `/api/auth/login`       | Public   | Login              |
-| POST   | `/api/auth/refresh-token` | Public | Refresh tokens     |
-| GET    | `/api/auth/profile`     | Protected | Get user profile  |
-| POST   | `/api/auth/logout`      | Protected | Logout            |
-| GET    | `/api/health`           | Public   | Health check       |
+| Method | Endpoint                  | Auth      | Description      |
+| ------ | ------------------------- | --------- | ---------------- |
+| POST   | `/api/auth/register`      | Public    | Register a user  |
+| POST   | `/api/auth/login`         | Public    | Login            |
+| POST   | `/api/auth/refresh-token` | Public    | Refresh tokens   |
+| GET    | `/api/auth/profile`       | Protected | Get user profile |
+| POST   | `/api/auth/logout`        | Protected | Logout           |
+| GET    | `/api/health`             | Public    | Health check     |
 
 ## Scripts
 
-| Script           | Description                      |
-| ---------------- | -------------------------------- |
+| Script                | Description                  |
+| --------------------- | ---------------------------- |
 | `npm run install:all` | Install server & client deps |
 | `npm run dev:server`  | Start backend in dev mode    |
 | `npm run dev:client`  | Start frontend in dev mode   |
