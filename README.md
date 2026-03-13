@@ -45,6 +45,14 @@ A full-stack authentication application built with **MongoDB**, **Express**, **R
 │   ├── eslint.config.js       # ESLint config
 │   ├── .prettierrc            # Prettier config
 │   └── package.json
+├── server-py/                 # FastAPI reference backend (Python)
+│   ├── app/
+│   │   ├── features/          # Auth router & schemas
+│   │   ├── core/              # Settings utilities
+│   │   └── main.py            # FastAPI entry point
+│   ├── requirements.txt       # Python dependencies
+│   ├── .ruff.toml             # Ruff config
+│   └── .pylintrc              # Pylint config
 └── package.json               # Root package.json
 ```
 
@@ -85,7 +93,24 @@ npx husky init
 
 The `.husky/pre-commit` hook is already configured.
 
-### 4. Run Development
+### 4. (Optional) FastAPI Backend Setup
+
+If you want to run the Python FastAPI backend instead of (or alongside) the Node server:
+
+```bash
+cd server-py
+python -m venv venv
+venv\Scripts\activate  # or source venv/bin/activate on macOS/Linux
+pip install -r requirements.txt
+uvicorn app.main:app --reload --port 5000
+```
+
+Linting for `server-py`:
+
+- `python -m ruff check .`
+- `python -m pylint app`
+
+### 5. Run Development
 
 Open **two terminals**:
 
@@ -102,19 +127,19 @@ npm run dev:client
 
 ## API Endpoints
 
-| Method | Endpoint                | Auth     | Description        |
-| ------ | ----------------------- | -------- | ------------------ |
-| POST   | `/api/auth/register`    | Public   | Register a user    |
-| POST   | `/api/auth/login`       | Public   | Login              |
-| POST   | `/api/auth/refresh-token` | Public | Refresh tokens     |
-| GET    | `/api/auth/profile`     | Protected | Get user profile  |
-| POST   | `/api/auth/logout`      | Protected | Logout            |
-| GET    | `/api/health`           | Public   | Health check       |
+| Method | Endpoint                  | Auth      | Description      |
+| ------ | ------------------------- | --------- | ---------------- |
+| POST   | `/api/auth/register`      | Public    | Register a user  |
+| POST   | `/api/auth/login`         | Public    | Login            |
+| POST   | `/api/auth/refresh-token` | Public    | Refresh tokens   |
+| GET    | `/api/auth/profile`       | Protected | Get user profile |
+| POST   | `/api/auth/logout`        | Protected | Logout           |
+| GET    | `/api/health`             | Public    | Health check     |
 
 ## Scripts
 
-| Script           | Description                      |
-| ---------------- | -------------------------------- |
+| Script                | Description                  |
+| --------------------- | ---------------------------- |
 | `npm run install:all` | Install server & client deps |
 | `npm run dev:server`  | Start backend in dev mode    |
 | `npm run dev:client`  | Start frontend in dev mode   |
